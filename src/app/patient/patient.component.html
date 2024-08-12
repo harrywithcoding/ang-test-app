@@ -1,0 +1,53 @@
+<div class="patient-container">
+    <input type="text" [(ngModel)]="searchTerm" (input)="searchPatients()" placeholder="Search patients..." />
+    
+    <ul class="patient-list" *ngIf="filteredPatients.length > 0">
+      <li *ngFor="let patient of filteredPatients" (click)="selectPatient(patient)">
+        <div>Name : {{ patient.name }}</div>
+        <div>Phone : {{ patient.phone }}</div>
+        <div>Address : {{ patient.address.formattedAddress }}</div>
+      </li>
+    </ul>
+  
+    <div *ngIf="filteredPatients.length === 0">
+      <p>No patients found.</p>
+      <button (click)="toggleAddPatientForm()">Add New Patient</button>
+    </div>
+  
+    <div *ngIf="showAddPatientForm" class="modal">
+      <div class="modal-content">
+        <h3>Add New Patient</h3>
+        <label for="name">Patient Name:</label>
+        <br>
+        <input type="text" id="name" [(ngModel)]="newPatient.name" required>
+        <br>
+        <label for="email">Email:</label>
+        <br>
+        <input type="email" id="email" [(ngModel)]="newPatient.email" required>
+        <br>
+        <label for="phone">Phone:</label>
+        <br>
+        <input type="text" id="phone" [(ngModel)]="newPatient.phone" required>
+        <br>
+        <label for="street">Street:</label>
+        <br>
+        <input type="text" id="street" [(ngModel)]="newPatient.address.street" required>
+        <br>
+        <label for="suite">Suite:</label>
+        <br>
+        <input type="text" id="suite" [(ngModel)]="newPatient.address.suite" required>
+        <br>
+        <label for="city">City:</label>
+        <br>
+        <input type="text" id="city" [(ngModel)]="newPatient.address.city" required>
+        <br>
+        <label for="zipcode">Zipcode:</label>
+        <br>
+        <input type="text" id="zipcode" [(ngModel)]="newPatient.address.zipcode" required>
+        <br>
+        <button (click)="saveNewPatient()">Save</button>
+        <button (click)="toggleAddPatientForm()">Cancel</button>
+      </div>
+    </div>
+  </div>
+  

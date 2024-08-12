@@ -1,0 +1,43 @@
+<div>
+  <h3>Cart</h3>
+  <table class="cart-table">
+    <thead>
+      <tr>
+        <th>Patient Name</th>
+        <th>Address</th>
+        <th>Bill Date</th>
+        <th>Amount</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bill of bills; let i = index">
+        <td>{{ bill.patient.name }}</td>
+        <td>{{ bill.patient.address.formattedAddress }}</td>
+        <td>{{ bill.date | date }}</td>
+        <td>{{ bill.totalAmount | currency:'INR' }}</td>
+        <td>
+          <button class="btn-view" (click)="viewBillDetails(bill)">View</button>
+          <button class="btn-delete" (click)="deleteBill(i)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Popup for Bill Details -->
+  <div *ngIf="selectedBill" class="popup">
+    <div class="popup-content">
+      <h3>Bill Details</h3>
+      <p><strong>Patient:</strong> {{ selectedBill.patient.name }}</p>
+      <p><strong>Address:</strong> {{ selectedBill.patient.address.formattedAddress }}</p>
+      <p><strong>Date:</strong> {{ selectedBill.date | date }}</p>
+      <ul>
+        <li *ngFor="let medicine of selectedBill.medicines">
+          {{ medicine.name }} - Quantity: {{ medicine.selectedQuantity }} - Subtotal: {{ medicine.subtotal | currency:'INR' }}
+        </li>
+      </ul>
+      <p><strong>Total:</strong> {{ selectedBill.totalAmount | currency:'INR' }}</p>
+      <button class="btn-close" (click)="closePopup()">Close</button>
+    </div>
+  </div>
+</div>

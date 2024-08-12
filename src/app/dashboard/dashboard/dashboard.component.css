@@ -16,9 +16,17 @@
     z-index: 1000;
 }
 
+
 .navbar-logo img {
-    height: 40px;
-    width: auto;
+    height: 50px;
+    width: 50px;
+    border: none;
+    border-radius: 50%;
+    background-image: url("../../assets/logo.png");
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: cover;
+    
 }
 
 .navbar-menu {
@@ -57,9 +65,4 @@
 
 .navbar-profile .profile-btn:hover {
     background-color: #45a049;
-}
-
-.content {
-    padding: 20px;
-    height: 1500px; 
 }

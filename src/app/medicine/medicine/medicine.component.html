@@ -1,0 +1,47 @@
+<div class="medicine-container">
+  <input type="text" [(ngModel)]="searchTerm" (input)="searchMedicines()" placeholder="Search medicines..." />
+
+  <ul class="medicine-list" *ngIf="filteredMedicines.length > 0">
+    <li *ngFor="let medicine of filteredMedicines" (click)="selectMedicine(medicine)">
+      <div>Name : {{ medicine.name }}</div>
+      <div>Batch : {{ medicine.batchno }}</div>
+      <div>Qty : {{ medicine.quantity }}</div>
+      <div>Mfd : {{medicine.mfd}}</div>
+      <div>Exp : {{medicine.exp}}</div>
+      <div>Price : {{medicine.price | currency:'INR'}}</div> 
+    </li>
+  </ul>
+
+  <div *ngIf="filteredMedicines.length === 0">
+    <p>No medicines found.</p>
+    <button (click)="toggleAddMedicineForm()">Add New Medicine</button>
+  </div>
+
+  <div *ngIf="showAddMedicineForm" class="modal">
+    <div class="modal-content">
+      <h3>Add New Medicine</h3>
+      <label for="name">Medicine Name:</label><br>
+      <input type="text" id="name" [(ngModel)]="newMedicine.name" required>
+      <br>
+      <label for="mfd">Manufacturing Date:</label>
+      <br>
+      <input type="date" id="mfd" [(ngModel)]="newMedicine.mfd" required>
+      <br>
+      <label for="exp">Expiry Date:</label>
+      <br>
+      <input type="date" id="exp" [(ngModel)]="newMedicine.exp" required>
+      <br>
+      <label for="batchno">Batch Number:</label><br>
+      <input type="text" id="batchno" [(ngModel)]="newMedicine.batchno" required>
+      <br>
+      <label for="quantity">Quantity:</label><br>
+      <input type="number" id="quantity" [(ngModel)]="newMedicine.quantity" required>
+      <br>
+      <label for="price">Price:</label><br>
+      <input type="number" id="price" [(ngModel)]="newMedicine.price" required>
+      <br>
+      <button (click)="saveNewMedicine()">Save</button>
+      <button (click)="toggleAddMedicineForm()">Cancel</button>
+    </div>
+  </div>
+</div>

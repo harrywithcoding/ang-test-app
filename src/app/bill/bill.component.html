@@ -1,0 +1,121 @@
+<div>
+    <h3>Select Patient</h3>
+    <mat-form-field appearance="fill">
+      <mat-label>Search patients</mat-label>
+      <input type="text" matInput [(ngModel)]="searchTerm" [matAutocomplete]="autoPatient" (input)="searchPatients()">
+      <mat-autocomplete #autoPatient="matAutocomplete">
+        <mat-option *ngFor="let patient of filteredPatients" (click)="selectPatient(patient)">
+          {{ patient.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  
+    <div *ngIf="filteredPatients.length === 0">
+      <p>No patients found.</p>
+      <button class="new-pat-btn" (click)="toggleAddPatientForm()">Add New Patient</button>
+    </div>
+
+    <div *ngIf="showAddPatientForm" class="modal">
+      <div class="modal-content">
+        <h3>Add New Patient</h3>
+        <label for="name">Patient Name:</label>
+        <br>
+        <input type="text" id="name" [(ngModel)]="newPatient.name" required>
+        <br>
+        <label for="email">Email:</label>
+        <br>
+        <input type="email" id="email" [(ngModel)]="newPatient.email" required>
+        <br>
+        <label for="phone">Phone:</label>
+        <br>
+        <input type="text" id="phone" [(ngModel)]="newPatient.phone" required>
+        <br>
+        <label for="street">Street:</label>
+        <br>
+        <input type="text" id="street" [(ngModel)]="newPatient.address.street" required>
+        <br>
+        <label for="suite">Suite:</label>
+        <br>
+        <input type="text" id="suite" [(ngModel)]="newPatient.address.suite" required>
+        <br>
+        <label for="city">City:</label>
+        <br>
+        <input type="text" id="city" [(ngModel)]="newPatient.address.city" required>
+        <br>
+        <label for="zipcode">Zipcode:</label>
+        <br>
+        <input type="text" id="zipcode" [(ngModel)]="newPatient.address.zipcode" required>
+        <br>
+        <button  (click)="saveNewPatient()">Save</button>
+        <button (click)="toggleAddPatientForm()">Cancel</button>
+      </div>
+    </div>
+
+    <div *ngIf="showMedicineSelection">
+      <h3>Select Medicines</h3>
+      <input type="text" [(ngModel)]="searchMedicineTerm" (input)="searchMedicines()" placeholder="Search medicines">
+      <ul *ngIf="filteredMedicines.length > 0">
+        <li *ngFor="let medicine of filteredMedicines" [ngClass]="{'selected': medicine.selected}" class="medicine-item">
+          <input type="checkbox" (change)="toggleMedicineSelection(medicine)" [checked]="selectedMedicines.includes(medicine)">
+          <span class="medicine-info">
+            {{ medicine.name }} - {{medicine.mfd}} - {{medicine.exp}} - ₹{{medicine.price}}
+          </span>
+          <span class="medicine-controls" *ngIf="medicine.selected">
+            <button class="dec-btn" (click)="decreaseQuantity(medicine)">-</button>
+            {{ medicine.selectedQuantity || 1 }}
+            <button class="inc-btn" (click)="increaseQuantity(medicine)">+</button>
+            - ₹{{ calculateSubtotal(medicine) | number:'1.2-2' }}
+          </span>
+        </li>
+      </ul>
+
+      <div *ngIf="filteredMedicines.length === 0">
+        <p>No medicines found.</p>
+        <button class="new-med-btn" (click)="toggleAddMedicineForm()">Add New Medicine</button>
+      </div>
+    
+      <div *ngIf="showAddMedicineForm" class="modal">
+        <div class="modal-content">
+          <h3>Add New Medicine</h3>
+          <label for="name">Medicine Name:</label><br>
+          <input type="text" id="name" [(ngModel)]="newMedicine.name" required>
+          <br>
+          <label for="mfd">Manufacturing Date:</label>
+          <br>
+          <input type="date" id="mfd" [(ngModel)]="newMedicine.mfd" required>
+          <br>
+          <label for="exp">Expiry Date:</label>
+          <br>
+          <input type="date" id="exp" [(ngModel)]="newMedicine.exp" required>
+          <br>
+          <label for="batchno">Batch Number:</label><br>
+          <input type="text" id="batchno" [(ngModel)]="newMedicine.batchno" required>
+          <br>
+          <label for="quantity">Quantity:</label><br>
+          <input type="number" id="quantity" [(ngModel)]="newMedicine.quantity" required>
+          <br>
+          <label for="price">Price:</label><br>
+          <input type="number" id="price" [(ngModel)]="newMedicine.price" required>
+          <br>
+          <button  (click)="saveNewMedicine()">Save</button>
+          <button (click)="toggleAddMedicineForm()">Cancel</button>
+        </div>
+      </div>
+    </div>
+    
+  
+    <button class="bill-btn" *ngIf="selectedPatient && selectedMedicines.length > 0" (click)="generateBill()">Generate Bill</button>
+  
+    <div *ngIf="generatedBill">
+      <h3>Bill Details</h3>
+      <p>Patient: {{ generatedBill.patient.name }}</p>
+      <p>Date: {{ generatedBill.date }}</p>
+      <ul>
+        <li *ngFor="let medicine of generatedBill.medicines">
+          {{ medicine.name }} - Quantity: {{ medicine.selectedQuantity }} - Subtotal: ₹{{ medicine.subtotal | number:'1.2-2' }}
+        </li>
+      </ul>
+      <p><strong>Total: ₹{{ generatedBill.subtotal | number:'1.2-2' }}</strong></p>
+    </div>
+  </div>
+  

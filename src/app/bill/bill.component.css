@@ -1,0 +1,170 @@
+/* Container styling */
+div {
+  font-family: Arial, sans-serif;
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+mat-form-field{
+  font-family: Arial, sans-serif;
+  width: 98%;
+  margin: 0 auto;
+  padding: 20px;
+}
+/* Heading styling */
+h3 {
+  margin-bottom: 15px;
+  font-size: 1.5em;
+  color: #333;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 5px;
+}
+
+/* Input field styling */
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="number"] {
+  width: 98%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+/* Patient and Medicine list styling */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+/* Hover effect */
+li:hover {
+  background-color: #e0f7fa;
+}
+
+/* Selected patient or medicine styling - static background color */
+li.selected {
+  background-color: #00acc1;
+  border-color: #007c91;
+  color: #fff;
+}
+
+.medicine-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.medicine-item input[type="checkbox"] {
+  margin-right: 15px;
+}
+
+.medicine-info {
+  flex-grow: 1;
+  padding-right: 15px;
+}
+
+.medicine-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.medicine-controls button {
+  padding: 5px 10px;
+  background-color: #ee4a4a;
+}
+
+.medicine-controls span {
+  min-width: 40px;
+  text-align: center;
+}
+.bill-btn,.new-pat-btn, .new-med-btn{
+  padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 40px;
+    margin-top: 26px;
+}
+
+
+/* Button styling */
+button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: #00acc1;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #007c91;
+}
+
+/* Generate Bill button styling */
+button.generate-bill {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #00796b;
+  font-size: 1.1em;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+button.generate-bill:hover {
+  background-color: #004d40;
+}
+
+/* Bill Details styling */
+.generated-bill {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f1f8e9;
+  border: 1px solid #c5e1a5;
+  border-radius: 5px;
+}
+
+.generated-bill h3 {
+  margin-bottom: 10px;
+  font-size: 1.3em;
+}
+
+.generated-bill ul {
+  margin-top: 10px;
+}
+
+.generated-bill p,
+.generated-bill ul li {
+  font-size: 1em;
+  color: #333;
+}
+
+.generated-bill strong {
+  font-size: 1.2em;
+  color: #388e3c;
+}
